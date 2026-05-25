@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Barcelona Academy | Футбольная школа в Испании</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #0a1a2e, #03060c);
+            color: #fff;
+            line-height: 1.5;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Меню с анимированными кнопками */
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 60px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(95deg, #e91e63, #ff7b2c);
+            color: white;
+            padding: 12px 28px;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: linear-gradient(95deg, #ff3b6f, #ff9633);
+            box-shadow: 0 12px 24px rgba(233, 30, 99, 0.5);
+        }
+
+        .btn {
+            background: linear-gradient(95deg, #e91e63, #ff7b2c);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 15px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        /* Общий контейнер страниц */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1522778119026-d647f0596c86?q=80&w=2070&auto=format');
+            background-size: cover;
+            border-radius: 40px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #ffd966, #ff6a3d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(15, 25, 40, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+        }
+
+        h1, h2 {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .styled-list {
+            list-style: none;
+            display: grid;
+            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .styled-list li {
+            background: rgba(233, 30, 99, 0.2);
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .coaches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .coach-card {
+            background: #0f1722;
+            border-radius: 28px;
+            padding: 20px;
+            text-align: center;
+            width: 260px;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .coach-card:hover {
+            transform: translateY(-8px);
+            border-color: #e91e63;
+        }
+
+        .coach-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #e91e63;
+        }
+
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #0c111c;
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .price-table th, .price-table td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #2c3e55;
+        }
+
+        .price-table th {
+            background: #e91e63;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            border-radius: 24px;
+            overflow: hidden;
+            background: #0f1722;
+            text-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        .contacts-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            background: #0f1722;
+            padding: 25px;
+            border-radius: 32px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 40px;
+            border: none;
+            background: #1e2a3a;
+            color: white;
+        }
+
+        .main-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 28px;
+            margin: 20px 0;
+        }
+
+        .video-wrapper {
+            margin: 30px 0;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #03070e;
+            border-radius: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .menu { gap: 12px; }
+            .nav-btn { padding: 8px 18px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu">
+    <button class="nav-btn" data-page="home"><i class="fas fa-home"></i> Главная</button>
+    <button class="nav-btn" data-page="catalog"><i class="fas fa-list"></i> Услуги</button>
+    <button class="nav-btn" data-page="gallery"><i class="fas fa-images"></i> Галерея</button>
+    <button class="nav-btn" data-page="contacts"><i class="fas fa-phone-alt"></i> Контакты</button>
+</div>
+
+<!-- СТРАНИЦА 1: ГЛАВНАЯ -->
+<div id="home" class="page active-page">
+    <div class="hero">
+        <h1>Футбольная академия <span>"BARCELONA"</span></h1>
+        <p>для детей от 6 до 16 лет в Испании</p>
+        <button class="btn" onclick="showAlert('✅ Заявка принята! Мы перезвоним для записи на бесплатное занятие.')">
+            <i class="fas fa-futbol"></i> Записаться бесплатно
+        </button>
+    </div>
+
+    <section>
+        <h2>🏆 Почему выбирают нас?</h2>
+        <ul class="styled-list">
+            <li><i class="fas fa-check-circle"></i> Тренеры — мастера спорта и лицензии UEFA</li>
+            <li><i class="fas fa-check-circle"></i> Индивидуальный подход к каждому ребёнку</li>
+            <li><i class="fas fa-check-circle"></i> Участие в турнирах и товарищеских матчах</li>
+            <li><i class="fas fa-check-circle"></i> 3 филиала в Испании: Барселона, Мадрид, Валенсия</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>⭐ Наши тренеры</h2>
+        <div class="coaches">
+            <div class="coach-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Hansi_Flick_2022.jpg/400px-Hansi_Flick_2022.jpg" alt="Ханси Флик">
+                <h3>Ханси Флик</h3>
+                <p>Главный тренер. Тренировал сборную Германии и Баварию</p>
+            </div>
+            <div class="coach-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Pep_Guardiola_2023_%28cropped%29.jpg/400px-Pep_Guardiola_2023_%28cropped%29.jpg" alt="Пеп Гвардиола">
+                <h3>Пеп Гвардиола</h3>
+                <p>Тренер-ассистент, работал в лагерях FC Goddart</p>
+            </div>
+            <div class="coach-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Xavi_Hern%C3%A1ndez_2021.jpg/400px-Xavi_Hern%C3%A1ndez_2021.jpg" alt="Хавьер Эрнандес">
+                <h3>Хавьер Эрнандес</h3>
+                <p>Тренер вратарей, легенда испанского футбола</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>📅 Ближайшие события</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            <div class="coach-card" style="width: auto;"><i class="fas fa-gift"></i> Акция «С другом веселее» — скидка 20%</div>
+            <div class="coach-card" style="width: auto;"><i class="fas fa-bus"></i> Выездная тренировка в Мадрид</div>
+            <div class="coach-card" style="width: auto;"><i class="fas fa-trophy"></i> Открытый Кубок академии</div>
+        </div>
+    </section>
+</div>
+
+<!-- СТРАНИЦА 2: УСЛУГИ / КАТАЛОГ (с таблицей и списком) -->
+<div id="catalog" class="page">
+    <section>
+        <h1>📋 Наши программы и стоимость</h1>
+        <img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=2070&auto=format" alt="Тренировка" class="main-image">
+        
+        <h2>💰 Прайс-лист (EUR)</h2>
+        <table class="price-table">
+            <thead><tr><th>Абонемент</th><th>Кол-во занятий</th><th>Стоимость</th><th>Бонус</th></tr></thead>
+            <tbody>
+                <tr><td>Разовое занятие</td><td>1</td><td>1000 €</td><td>Первое занятие бесплатно</td></tr>
+                <tr><td>Групповой</td><td>8 в месяц</td><td>5000 €</td><td>2 раза в неделю + консультация</td></tr>
+                <tr><td>Премиум</td><td>12 в месяц</td><td>8000 €</td><td>3 групповых + 4 индивид.</td></tr>
+            </tbody>
+        </table>
+
+        <h2>📌 Дополнительные услуги</h2>
+        <ul class="styled-list">
+            <li><i class="fas fa-dumbbell"></i> Индивидуальная тренировка — 300 €/час</li>
+            <li><i class="fas fa-campground"></i> Спортивный лагерь на каникулах — 2500 €/смена</li>
+            <li><i class="fas fa-chalkboard"></i> Онлайн-разбор матчей — 150 €/мес</li>
+        </ul>
+
+        <button class="btn" onclick="showAlert('Менеджер свяжется с вами для подбора абонемента')">
+            <i class="fas fa-calculator"></i> Рассчитать стоимость
+        </button>
+    </section>
+</div>
+
+<!-- СТРАНИЦА 3: ГАЛЕРЕЯ (фотографии) -->
+<div id="gallery" class="page">
+    <section>
+        <h1>📸 Фотогалерея нашей академии</h1>
+        <div class="gallery">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c86?w=500&auto=format" alt="Матч"><span>Матч на Camp Nou</span></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1459865264687-287d24f8aba0?w=500&auto=format" alt="Тренировка"><span>Тренировка вратарей</span></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511882150382-421056c3c33b?w=500&auto=format" alt="Дети"><span>Победа в турнире</span></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=500&auto=format" alt="Стадион"><span>База клуба Barcelona</span></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=500&auto=format" alt="Тренер"><span>Тренировка с Ханси Фликом</span></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=500&auto=format" alt="Мяч"><span>Экипировка клуба</span></div>
+        </div>
+    </section>
+</div>
+
+<!-- СТРАНИЦА 4: КОНТАКТЫ + ФОРМА + ВИДЕО -->
+<div id="contacts" class="page">
+    <section>
+        <h1>📞 Свяжитесь с нами</h1>
+        <div class="contacts-flex">
+            <div class="contact-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Главный офис</h3>
+                <p>Camp Nou, C. d'Arístides Maillol, 12, 08028 Barcelona</p>
+                <p><i class="fas fa-phone-alt"></i> +1 (834) 726 23 57</p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp: +34 612 345 678</p>
+                <p><i class="far fa-envelope"></i> hello@fcbacademy.com</p>
+                <h3><i class="fas fa-clock"></i> Режим работы</h3>
+                <p>Пн-Пт: 9:00–20:00<br>Сб: 10:00–14:00</p>
+            </div>
+            
+            <div class="contact-form">
+                <h3>📝 Напишите нам</h3>
+                <form id="callbackForm" onsubmit="event.preventDefault(); sendForm();">
+                    <input type="text" id="name" placeholder="Ваше имя" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="tel" id="phone" placeholder="Телефон" required>
+                    <textarea rows="3" placeholder="Ваш вопрос или возраст ребёнка"></textarea>
+                    <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Отправить</button>
+                </form>
+            </div>
+        </div>
+
+        <h2>🎥 Видео о нашей академии</h2>
+        <div class="video-wrapper">
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/6Tujz7DzWys?si=dummy" title="Футбольная тренировка" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>© 2025 Футбольная школа FC Barcelona Academy | Все права защищены</p>
+</footer>
+
+<script>
+    // Переключение между страницами (одностраничная навигация)
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active-page');
+        });
+        document.getElementById(pageId).classList.add('active-page');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Назначение обработчиков кнопкам меню
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const page = btn.getAttribute('data-page');
+            showPage(page);
+        });
+    });
+
+    // Функция для alert (по методичке)
+    function showAlert(msg) {
+        alert(msg);
+    }
+
+    // Функция отправки формы (имитация)
+    function sendForm() {
+        const name = document.getElementById('name')?.value;
+        const email = document.getElementById('email')?.value;
+        if(name && email) {
+            alert(`Спасибо, ${name}! Мы свяжемся с вами по email: ${email}`);
+            document.getElementById('callbackForm')?.reset();
+        } else {
+            alert('Пожалуйста, заполните имя и email');
+        }
+    }
+
+    // Делаем showAlert и sendForm глобальными для onclick
+    window.showAlert = showAlert;
+    window.sendForm = sendForm;
+</script>
+</body>
+</html>
